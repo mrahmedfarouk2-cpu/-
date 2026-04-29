@@ -14,6 +14,35 @@ try {
   console.error('FAILED to initialize Prisma Client:', e.message);
 }
 
+// Function to seed initial data if empty
+async function seedIfNeeded() {
+  try {
+    const configCount = await prisma.systemConfig.count();
+    if (configCount === 0) {
+      console.log('Seeding initial configuration...');
+      await prisma.systemConfig.create({
+        data: {
+          schoolName: 'وزارة التربية والتعليم',
+          subjectName: 'الفنون البصرية',
+          academicYear: '2024-2025',
+          grades: [
+            { id: 'primary_1', name: 'الصف الأول الابتدائي' },
+            { id: 'primary_2', name: 'الصف الثاني الابتدائي' },
+            { id: 'primary_3', name: 'الصف الثالث الابتدائي' }
+          ],
+          subjects: [
+            { id: 'art_1', name: 'التربية الفنية' }
+          ]
+        }
+      });
+    }
+  } catch (e) {
+    console.error('Seeding error:', e.message);
+  }
+}
+
+seedIfNeeded();
+
 const app = express();
 const port = process.env.PORT || 8000;
 
