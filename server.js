@@ -14,35 +14,6 @@ try {
   console.error('FAILED to initialize Prisma Client:', e.message);
 }
 
-// Function to seed initial data if empty
-async function seedIfNeeded() {
-  try {
-    const configCount = await prisma.systemConfig.count();
-    if (configCount === 0) {
-      console.log('Seeding initial configuration...');
-      await prisma.systemConfig.create({
-        data: {
-          schoolName: 'وزارة التربية والتعليم',
-          subjectName: 'الفنون البصرية',
-          academicYear: '2024-2025',
-          grades: [
-            { id: 'primary_1', name: 'الصف الأول الابتدائي' },
-            { id: 'primary_2', name: 'الصف الثاني الابتدائي' },
-            { id: 'primary_3', name: 'الصف الثالث الابتدائي' }
-          ],
-          subjects: [
-            { id: 'art_1', name: 'التربية الفنية' }
-          ]
-        }
-      });
-    }
-  } catch (e) {
-    console.error('Seeding error:', e.message);
-  }
-}
-
-seedIfNeeded();
-
 const app = express();
 const port = process.env.PORT || 8000;
 
@@ -57,16 +28,26 @@ const defaultData = {
   appTitle: 'بوابة تقييم الفنون البصرية',
   appSubtitle: 'مشروع تشغيل المدارس الثقافية الحكومية',
   grades: [
-    { id: 'grade4', name: 'الصف الرابع' },
-    { id: 'intermediate1', name: 'الصف الأول متوسط' }
+    { id: 'grade1', name: 'الصف الأول الابتدائي' },
+    { id: 'grade2', name: 'الصف الثاني الابتدائي' },
+    { id: 'grade3', name: 'الصف الثالث الابتدائي' },
+    { id: 'grade4', name: 'الصف الرابع الابتدائي' },
+    { id: 'grade5', name: 'الصف الخامس الابتدائي' },
+    { id: 'grade6', name: 'الصف السادس الابتدائي' },
+    { id: 'grade_int1', name: 'الصف الأول متوسط' },
+    { id: 'grade_int2', name: 'الصف الثاني متوسط' },
+    { id: 'grade_int3', name: 'الصف الثالث متوسط' },
+    { id: 'grade_sec1', name: 'الصف الأول ثانوي' },
+    { id: 'grade_sec2', name: 'الصف الثاني ثانوي' },
+    { id: 'grade_sec3', name: 'الصف الثالث ثانوي' }
   ],
   subjects: [
     { id: 'drawing_basics', name: 'أساسيات الرسم' },
     { id: 'saudi_arts', name: 'الفنون البصرية السعودية' },
-    { id: 'cartoon', name: 'الرسم الكرتوني', grades: ['grade4'] },
-    { id: 'handicrafts', name: 'الأشغال اليدوية', grades: ['grade4'] },
-    { id: 'character_design', name: 'رسم وتصميم الشخصيات الكرتونية', grades: ['intermediate1'] },
-    { id: 'digital_drawing', name: 'الرسم الرقمي', grades: ['intermediate1'] }
+    { id: 'cartoon', name: 'الرسم الكرتوني', grades: ['grade4', 'grade5', 'grade6'] },
+    { id: 'handicrafts', name: 'الأشغال اليدوية', grades: ['grade4', 'grade5', 'grade6'] },
+    { id: 'character_design', name: 'رسم وتصميم الشخصيات الكرتونية', grades: ['grade_int1', 'grade_int2', 'grade_int3'] },
+    { id: 'digital_drawing', name: 'الرسم الرقمي', grades: ['grade_int1', 'grade_int2', 'grade_int3', 'grade_sec1'] }
   ],
   evalTypeTitles: {
     unit: 'تقييم نهاية الوحدة (20 درجة)',
