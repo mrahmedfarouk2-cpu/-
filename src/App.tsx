@@ -307,7 +307,7 @@ export default function App() {
 
   return (
     <>
-    <div className={`min-h-screen p-4 md:p-8 max-w-4xl mx-auto ${batchPrinting ? 'print:hidden' : ''}`}>
+    <div className={`min-h-screen p-3 sm:p-4 md:p-8 max-w-5xl mx-auto ${batchPrinting ? 'print:hidden' : ''}`}>
       {/* Header */}
       <header className="mb-12 print:mb-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
@@ -372,7 +372,7 @@ export default function App() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
           >
             {grades.map((grade) => (
               <button
@@ -449,7 +449,7 @@ export default function App() {
             <div className="mb-6">
               <h2 className="text-lg font-bold text-gray-900">نوع آلية التقييم</h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               <button
                 onClick={() => { setSelectedType('unit'); setStep('student'); }}
                 className="group p-6 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-all text-center flex flex-col items-center gap-4 relative"
@@ -741,7 +741,7 @@ export default function App() {
                           <button
                             key={val}
                             onClick={() => setScores(prev => ({ ...prev, [criterion.id]: val }))}
-                            className={`flex-1 py-3 px-4 print:py-0.5 print:px-2 rounded-xl print:rounded-md font-bold print:text-xs transition-all border-2 print:border ${
+                            className={`flex-1 min-h-[50px] py-3 px-4 print:py-0.5 print:px-2 rounded-xl print:rounded-md font-bold print:text-xs transition-all border-2 print:border ${
                               isSelected 
                                 ? 'bg-indigo-600 border-indigo-600 text-white shadow-lg shadow-indigo-100 -translate-y-0.5 print:-translate-y-0 print:shadow-none print:bg-indigo-600 print:text-white print:border-indigo-600' 
                                 : 'bg-white border-gray-100 text-gray-500 hover:border-indigo-100 hover:text-indigo-600 print:hidden'

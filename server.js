@@ -472,9 +472,17 @@ app.get('/api/evaluations/batch', async (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(process.cwd(), 'dist', 'index.html'));
+  const indexPath = path.join(process.cwd(), 'dist', 'index.html');
+  console.log('Serving index.html from:', indexPath);
+  res.sendFile(indexPath, (err) => {
+    if (err) {
+      console.error('Error sending index.html:', err.message);
+      res.status(404).send('Frontend files not found. Please ensure "npm run build" was successful.');
+    }
+  });
 });
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
+  console.log('Current working directory:', process.cwd());
 });
