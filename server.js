@@ -6,12 +6,15 @@ import path from 'path';
 
 dotenv.config();
 
-if (!process.env.DATABASE_URL) {
-  console.error('CRITICAL ERROR: DATABASE_URL is not defined in environment variables!');
+let prisma;
+try {
+  prisma = new PrismaClient();
+  console.log('Database Client Initialized');
+} catch (e) {
+  console.error('FAILED to initialize Prisma Client:', e.message);
 }
 
 const app = express();
-const prisma = new PrismaClient();
 const port = process.env.PORT || 8000;
 
 app.use(cors());
